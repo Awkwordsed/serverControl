@@ -23,6 +23,21 @@ app.get('/reboot', (req, res) => {
   });
 });
 
+app.get('/power-off', (req, res) => {
+  // Trigger the poweroff subprocess
+  const { exec } = require('child_process');
+  exec('sudo poweroff', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      res.status(500).send('Poweroff failed');
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    console.error(`stderr: ${stderr}`);
+    res.send('Poweroff initiated');
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
