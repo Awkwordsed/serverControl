@@ -30,9 +30,32 @@
 			console.error('Error:', error);
 		});
 
-		document.getElementById('rebootButton').addEventListener('click', () => {      fetch('/reboot')        .then(response => response.text())        .then(message => {          console.log(message);          alert(message);        })        .catch(error => {          console.error('Error:', error);          alert('An error occurred');        });    });
+		document.getElementById('rebootButton').addEventListener('click', () => {
+			fetch('/reboot')
+			.then(response => response.text())
+			.then(message => {
+				console.log(message);
+				alert(message);
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				alert('An error occurred');
+			});
+		});
 
-		document.getElementById('powerOff-Button').addEventListener('click', () => {      fetch('/power-off')        .then(response => response.text())        .then(message => {          console.log(message);          alert(message);        })        .catch(error => {          console.error('Error:', error);          alert('An error occurred');        });    }); 
+		document.getElementById('powerOff-Button').addEventListener('click', () => {
+			fetch('/power-off')
+			.then(response => response.text())
+			.then(message => {
+				console.log(message);
+				alert(message);
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				alert('An error occurred');
+			});
+		});
+		
 	</script>
 
 </body>
