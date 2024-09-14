@@ -8,6 +8,21 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
+app.get('/uname', (req, res) => {
+  // Execute the 'uname -a' command and capture its output
+  const { exec } = require('child_process');
+  exec('uname -a', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      res.status(500).send('Error running uname command');
+      return;
+    }
+
+    // Send the command output as plain text response
+    res.type('text/plain').send(stdout.trim());
+  });
+});
+
 app.get('/reboot', (req, res) => {
   // Trigger the reboot subprocess
   const { exec } = require('child_process');
