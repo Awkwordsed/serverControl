@@ -7,10 +7,15 @@
 	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
 	<title></title>
 </head>
-<body>
+<body class="bg-dark d-flex justify-content-center position-absolute top-0 start-50 translate-middle-x grid gap-0 column-gap-1">
 	<script type="text/javascript" src="server.js"></script>
-	<button id="rebootButton">Reboot</button>
+
+	<button type="button" class="btn btn-secondary" id="rebootButton">Reboot</button>
 	<script>    document.getElementById('rebootButton').addEventListener('click', () => {      fetch('/reboot')        .then(response => response.text())        .then(message => {          console.log(message);          alert(message);        })        .catch(error => {          console.error('Error:', error);          alert('An error occurred');        });    });  </script>
+
+	<button type="button" class="btn btn-secondary" id="powerOff-Button">Power off</button>
+	<script>    document.getElementById('powerOff-Button').addEventListener('click', () => {      fetch('/power-off')        .then(response => response.text())        .then(message => {          console.log(message);          alert(message);        })        .catch(error => {          console.error('Error:', error);          alert('An error occurred');        });    });  </script>
+
 	<script type="text/javascript" src="bootstrap.min.js"></script>
 	</body>
 </body>
