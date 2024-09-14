@@ -21,13 +21,18 @@
 
 	<script>
 		fetch('/uname')
-		.then(response => response.text())
+		.then(response => response.json())
 		.then(data => {
-        // Set the command output as the content of the div
-			document.getElementById('uname-output').textContent = data;
+			if (data.error) {
+				console.error(data.error);
+				document.getElementById('uname-output').textContent = 'Error occurred';
+			} else {
+				document.getElementById('uname-output').innerHTML = data.output;
+			}
 		})
 		.catch(error => {
 			console.error('Error:', error);
+			document.getElementById('uname-output').textContent = 'Error occurred';
 		});
 
 		document.getElementById('rebootButton').addEventListener('click', () => {
@@ -55,7 +60,7 @@
 				alert('An error occurred');
 			});
 		});
-		
+
 	</script>
 
 </body>
