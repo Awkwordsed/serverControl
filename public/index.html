@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript" src="server.js"></script>
+	<button id="rebootButton">Reboot</button>
+	<script>    document.getElementById('rebootButton').addEventListener('click', () => {      fetch('/reboot')        .then(response => response.text())        .then(message => {          console.log(message);          alert(message);        })        .catch(error => {          console.error('Error:', error);          alert('An error occurred');        });    });  </script>
+	<script type="text/javascript" src="bootstrap.min.js"></script>
+	</body>
+</body>
+</html>
