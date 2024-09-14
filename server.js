@@ -1,3 +1,4 @@
+const { exec } = require('child_process');
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -10,8 +11,7 @@ app.get('/', (req, res) => {
 
 app.get('/uname', (req, res) => {
   // Execute the 'uname -a' command and capture its output
-  const { exec } = require('child_process');
-  exec('uname -a', (error, stdout, stderr) => {
+  exec('uname -a && sensors', (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`);
       res.status(500).send('Error running uname command');
@@ -23,9 +23,9 @@ app.get('/uname', (req, res) => {
   });
 });
 
+
 app.get('/reboot', (req, res) => {
   // Trigger the reboot subprocess
-  const { exec } = require('child_process');
   exec('sudo reboot', (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`);
@@ -40,7 +40,6 @@ app.get('/reboot', (req, res) => {
 
 app.get('/power-off', (req, res) => {
   // Trigger the poweroff subprocess
-  const { exec } = require('child_process');
   exec('sudo poweroff', (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`);
