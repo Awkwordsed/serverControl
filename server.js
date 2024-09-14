@@ -10,19 +10,32 @@ app.get('/', (req, res) => {
 });
 
 app.get('/uname', (req, res) => {
-  // Execute the 'uname -a' command and capture its output
-  exec('uname -a && sensors', (error, stdout, stderr) => {
+  exec('uname -a', (error, unameStdout, unameStderr) => {
     if (error) {
       console.error(`exec error: ${error}`);
-      res.status(500).send('Error running uname command');
+      res.status(500).send({ error: 'Error running uname command' });
       return;
     }
 
-    // Send the command output as plain text response
-    res.type('text/plain').send(stdout.trim());
+    exec('sensors', (error, sensorsStdout, sensorsStderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        res.status(500).send({ error: 'Error running sensors command' });
+        return;
+      }
+
+      // Replace newline characters with <br> tags in the output
+      const formattedUnameOutput = unameStdout.trim().replace(/\n/g, '<br>');
+      const formattedSensorsOutput = sensorsStdout.trim().replace(/\n/g, '<br>');
+
+      // Combine the formatted output with a separator line
+      const output = `${formattedUnameOutput}<br>------<br>${formattedSensorsOutput}`;
+
+      // Send the formatted command output as JSON response
+      res.json({ output });
+    });
   });
 });
-
 
 app.get('/reboot', (req, res) => {
   // Trigger the reboot subprocess
