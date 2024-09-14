@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<title></title>
 </head>
-<body class="bg-dark d-flex justify-content-center position-absolute top-0 start-50 translate-middle-x grid gap-0 column-gap-1">
-	<script type="text/javascript" src="server.js"></script>
 
-	<button type="button" class="btn btn-secondary" id="rebootButton">Reboot</button>
-	<script>    document.getElementById('rebootButton').addEventListener('click', () => {      fetch('/reboot')        .then(response => response.text())        .then(message => {          console.log(message);          alert(message);        })        .catch(error => {          console.error('Error:', error);          alert('An error occurred');        });    });  </script>
-
-	<button type="button" class="btn btn-secondary" id="powerOff-Button">Power off</button>
-	<script>    document.getElementById('powerOff-Button').addEventListener('click', () => {      fetch('/power-off')        .then(response => response.text())        .then(message => {          console.log(message);          alert(message);        })        .catch(error => {          console.error('Error:', error);          alert('An error occurred');        });    });  </script>
+<body class="bg-dark grid gap-0 column-gap-1">
 
 	<script type="text/javascript" src="bootstrap.min.js"></script>
-	</body>
+	<script type="text/javascript" src="server.js"></script>
+	<div id="uname-output" class="alert alert-dark bg-dark text-light" role="alert"></div>
+
+	<button type="button" class="btn btn-secondary" id="rebootButton">Reboot</button>
+	<button type="button" class="btn btn-secondary" id="powerOff-Button">Power off</button>
+
+	<script>
+		fetch('/uname')
+		.then(response => response.text())
+		.then(data => {
+        // Set the command output as the content of the div
+			document.getElementById('uname-output').textContent = data;
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});
+
+		document.getElementById('rebootButton').addEventListener('click', () => {      fetch('/reboot')        .then(response => response.text())        .then(message => {          console.log(message);          alert(message);        })        .catch(error => {          console.error('Error:', error);          alert('An error occurred');        });    });
+
+		document.getElementById('powerOff-Button').addEventListener('click', () => {      fetch('/power-off')        .then(response => response.text())        .then(message => {          console.log(message);          alert(message);        })        .catch(error => {          console.error('Error:', error);          alert('An error occurred');        });    }); 
+	</script>
+
+</body>
 </body>
 </html>
